@@ -4,12 +4,14 @@
 </head>
 <body>
     <div>
-        <h1 id="data">Hello! this is home page</h1>
+        <input type="test" id="data"/>
+		<button onclick = "clicked()">Click me</button>
     </div>
 	<script>
-		const itemStr = localStorage.getItem("LoggedIn_SRNo");
-		document.getElementById("data").innerHTML = name;
-		console.log(name);
+		function clicked(){
+			var url = "http://localhost:8080/auth/" + document.getElementById("data").value;
+			window.location.href = url;
+		}
 	</script>
 </body>
 </html>
