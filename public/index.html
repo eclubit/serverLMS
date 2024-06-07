@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<head>
+	
+</head>
+<body>
+    <div>
+        <h1>Hello! this is home page</h1>
+		 <h1 id="data">Hello! this is home page</h1>
+        <h3>Serving static HTML file using Node.js</h3>
+    </div>
+	<script>localStorage.setItem("LoggedIn_SRNo", "wefwef");
+	
+	const itemStr = localStorage.getItem("LoggedIn_SRNo");
+		document.getElementById("data").innerHTML = localStorage.getItem("LoggedIn_SRNo");
+	</script>
+</body>
+</html>
