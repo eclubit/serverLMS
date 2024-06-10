@@ -65,6 +65,12 @@ app.get('/mail', (req, res) => {
     .end();
 });
 
+app.get('/test', (req, res) => {
+	let id = "<script>localStorage.getItem('LoggedIn_SRNo')</script>";
+	res.send(id);
+});
+
+
  
 // Start the server
 const PORT = process.env.PORT || 8080;
