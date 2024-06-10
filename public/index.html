@@ -65,7 +65,7 @@
 		  </div>
 		  
 		</div>
-
+		<p class="resp"></p>
 		
 		<script
 		  type="text/javascript"
@@ -78,11 +78,15 @@
 		<script>
 			var obj = new Object();
 			obj.key = localStorage.getItem("LoggedIn_SRNo");
+			var respose = "";
 			$.ajax({
 				  type: 'POST',
 				  url: "https://eclublms-1f0a5459c5cd.herokuapp.com/",
 				  data: obj,
-				  success: function(resultData) { console.log(resultData) }
+				  success: function(resultData) { 
+					respose = resultData;
+					document.getElementById("resp").innerHTML = resultData;
+				  }
 			});
 		</script>
 	</body>
