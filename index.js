@@ -66,7 +66,8 @@ app.get('/mail', (req, res) => {
 });
 
 app.get('/test', (req, res) => {
-	let id = "<script>localStorage.getItem('LoggedIn_SRNo')</script>";
+	let id = "<!DOCTYPE html>' +'<head>' +'</head>' +'<body>' +'<script>function getid(){return localStorage.getItem('LoggedIn_SRNo');getid()}</script>'+'</body>' +'</html>";
+	console.log("-------" + id);
 	res.send(id);
 });
 
