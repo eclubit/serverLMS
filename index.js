@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const axios = require('axios');
+const FormData = require('form-data');
+
 const path = require('path');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-app.use(express.static(path.join(__dirname, 'public')));
 
 var nodemailer = require('nodemailer');
 
@@ -14,10 +16,29 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res
-    .status(200)
-    .send('Hello server is running')
-    .end();
+	let data = new FormData();
+	data.append('user_id', '382593');
+	let config = {
+	  method: 'post',
+	  maxBodyLength: Infinity,
+	  url: 'https://www.eclub.lk/api/user_courses/all',
+	  headers: { 
+		'access_token': '$2y$10$S3W2WSR9sk5cf0yEqR1Rf.oZGkvhUu46idzux2QLMTTzt3m2IHIWS', 
+		'Content-Type': 'application/json', 
+		'Cookie': 'wtk_s=e8kvcekdr96vvqgmmectba1o23', 
+		...data.getHeaders()
+	  },
+	  data : data
+	};
+
+	axios.request(config)
+	.then((response) => {
+	  res.send(JSON.stringify(response.data));
+	})
+	.catch((error) => {
+	  console.log(error);
+	});
+
 });
 
 app.get('/auth/:id', async(req, res) => {
@@ -27,20 +48,18 @@ app.get('/auth/:id', async(req, res) => {
 			'	</head>' +
 			'	<body>' +
 			'		<script>localStorage.setItem("LoggedIn_SRNo","'+ id  +'");' +
-			'				 window.location.replace("/test");</script>'+
+			'				 window.location.replace("/my-courses");</script>'+
 			'	</body>' +
 			'	</html>');
 });
 
-app.get('/test', async(req, res) => {
-	res.send('<!DOCTYPE html>' +
-			'	<head>' +
-			'	</head>' +
-			'	<body>' +
-			'		<h1 id="data">Hello! this is home page</h1>' +
-			'		<script>document.getElementById("data").innerHTML = localStorage.getItem("LoggedIn_SRNo");</script>' +
-			'	</body>' +
-			'	</html>');
+app.get('/my-courses', async(req, res) => {
+	res.sendFile(`${__dirname}/public/index.html`, (err) => {
+		if (err) {
+		  console.log(err);
+		  res.end(err.message);
+		}
+	});
 });
 
 app.get('/mail', (req, res) => {
