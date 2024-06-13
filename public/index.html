@@ -94,7 +94,7 @@
 				  data: obj,
 				  success: function(resultData) { 
 					respose = resultData;
-					for(var i = 0 , i < resultData.length ; i++){
+					for(var i = 0 ; i < resultData.length ; i++){
 						var x = document.getElementById("drpDown_Courses");
 						var option = document.createElement("option");
 						option.text = resultData[i].category;
