@@ -53,10 +53,6 @@
 		<div class="wrapper">
 			<select class="custom-select" id="drpDown_Courses">
 				<option class="select" value="0">Select Your Course:   </option>
-				<option class="select" value="1">Option 1</option>
-				<option class="select" value="2">Option 2</option>
-				<option class="select" value="3">Option 3</option>
-				<option class="select" value="4">Option 4</option>
 			</select>
 		</div>
 		<div class="row row-cols-1 row-cols-md-4 g-4 mx-1">
@@ -93,15 +89,26 @@
 				  url: "https://eclublms-1f0a5459c5cd.herokuapp.com/",
 				  data: obj,
 				  success: function(resultData) { 
-					respose = resultData;
-					for(var i = 0 ; i < resultData.length ; i++){
-						var x = document.getElementById("drpDown_Courses");
+					respose = JSON.parse(resultData);
+					var courses = [];
+					for(var i = 0 ; i < respose.length ; i++){
+						var isAvailableInArray = false;
+						for(var a = 0 ; a < courses.length ; a++){
+							if(courses[a] == (respose[i].category)){
+								isAvailableInArray = true;
+							}
+						}
+						if(!isAvailableInArray){
+							courses.push(respose[i].category);
+						}
+						/*var x = document.getElementById("drpDown_Courses");
 						var option = document.createElement("option");
-						option.text = resultData[i].category;
+						option.text = respose[i].category;
 						x.add(option);
-						console.log(resultData[i]);
+						console.log(respose[i].category);*/
+						
 					}
-					
+					console.log(courses);
 				  }
 			});
 		</script>
