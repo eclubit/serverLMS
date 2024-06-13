@@ -95,7 +95,11 @@
 				  success: function(resultData) { 
 					respose = resultData;
 					for(var i = 0 , i < resultData.length ; i++){
-						document.getElementById("drpDown_Courses").innerHTML += resultData[i].category;
+						var x = document.getElementById("drpDown_Courses");
+						var option = document.createElement("option");
+						option.text = resultData[i].category;
+						x.add(option);
+						console.log(resultData[i].category);
 					}
 					
 				  }
