@@ -41,9 +41,18 @@
 		</style>
 	</head>
 	<body>
+		<div class="p-1 bg-primary"></div>
+		<div class="text-center mt-2">
+			<img src="https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png" class="img-fluid rounded-circle" style="width : 28vw; height : 18vw;"/>
+			<h6>Dasun Chamika Hettiarachchi</h6>
+			<small>SR284567 | dasunchamiahettiarachchi@gmail.com</small>
+			<button type="button" class="btn btn-primary btn-rounded" data-mdb-ripple-init>LOGOUT</button>
+		</div>
+		
+
 		<div class="wrapper">
-			<select class="custom-select">
-				<option class="select" value="0">Select option:   </option>
+			<select class="custom-select" id="drpDown_Courses">
+				<option class="select" value="0">Select Your Course:   </option>
 				<option class="select" value="1">Option 1</option>
 				<option class="select" value="2">Option 2</option>
 				<option class="select" value="3">Option 3</option>
@@ -85,7 +94,10 @@
 				  data: obj,
 				  success: function(resultData) { 
 					respose = resultData;
-					document.getElementById("resp").innerHTML = resultData;
+					for(var i = 0 , i < resultData.length ; i++){
+						document.getElementById("drpDown_Courses").innerHTML += resultData[i].category;
+					}
+					
 				  }
 			});
 		</script>
