@@ -108,7 +108,14 @@
 						console.log(respose[i].category);*/
 						
 					}
+					
 					console.log(courses);
+					for(var a = 0 ; a < courses.length ; a++){
+						var x = document.getElementById("drpDown_Courses");
+						var option = document.createElement("option");
+						option.text = courses[i].category;
+						x.add(option);
+					}
 				  }
 			});
 		</script>
