@@ -45,7 +45,7 @@
 		<div class="text-center mt-2">
 			<img src="https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png" class="img-fluid rounded-circle" style="width : 28vw; height : 18vw;"/>
 			<h6>Dasun Chamika Hettiarachchi</h6>
-			<small>SR284567 | dasunchamiahettiarachchi@gmail.com</small>
+			<small>SR284567 | dasunchamiahettiarachchi@gmail.com</small><br/>
 			<button type="button" class="btn btn-primary btn-rounded" data-mdb-ripple-init>LOGOUT</button>
 		</div>
 		
@@ -81,12 +81,14 @@
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 		<script>
+			//var endpointLink = 'https://eclublms-1f0a5459c5cd.herokuapp.com/';
+			var endpointLink = 'http://localhost:8080/';
 			var obj = new Object();
 			obj.key = localStorage.getItem("LoggedIn_SRNo");
 			var respose = "";
 			$.ajax({
 				  type: 'POST',
-				  url: "https://eclublms-1f0a5459c5cd.herokuapp.com/",
+				  url: endpointLink,
 				  data: obj,
 				  success: function(resultData) { 
 					respose = JSON.parse(resultData);
