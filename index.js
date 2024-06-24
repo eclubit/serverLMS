@@ -2,7 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const FormData = require('form-data');
+const fs = require('fs');
 
+const { promisify } = require('util');
+
+const readFile = promisify(fs.readFile);
 const path = require('path');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -56,6 +60,47 @@ app.get('/auth/:id', async(req, res) => {
 app.get('/my-courses', async(req, res) => {
 	res.sendFile("public/index.html", { root: __dirname })
 });
+
+app.post('/send-email', async(req, res) => {
+	var receiver = req.body.receiver;
+	var subject = req.body.subject;
+	var text = req.body.text;
+	var html = req.body.html;
+	const transporter = nodemailer.createTransport({
+	  service: "Gmail",
+	  host: "smtp.gmail.com",
+	  port: 465,
+	  secure: true,
+	  auth: {
+		user: "office.eclub@gmail.com",
+		pass: "nepc cnzg feyw uugd"
+		},
+	});
+	
+	var mailOptions = {
+	  from: 'office.eclub@gmail.com',
+	  to: receiver,
+	  //subject: 'Virtual Loyality Card Infromation',
+	  //html: await readFile("public/test.html", 'utf8')
+	  subject: subject,
+	  text: text,
+	  html: '<!doctype html><html lang="en"> <head></head> <body> <img style="height : 20%; width : 30%;" src="cid:eclub@logo"></div><p style="font-family : Comic Sans; margin-top : 4%;">Your account was created. Please login to <a href="https://office.eclub.lk/">https://office.eclub.lk/</a> using following credintials.</p><table style="border-collapse: collapse;border: 1px solid;"><tbody><tr style="border: 1px solid;"><td style="border: 1px solid; width : 20%; padding : 1%">Username</td><td style="border: 1px solid; width : 40%; padding : 1%"><h4>CCO365643</h4></td></tr><tr><td style="border: 1px solid; width : 20%; padding : 1%">Password</td><td style="border: 1px solid; width : 40%; padding : 1%"><h4>cR%g5fyrt@34</h4></td></tr></tbody></table><p style="margin-top : 4%; color : red;"><b>The above details are highly private and confidential so please avoid sharing them.</b></p> </body></html>',
+	  attachments: [{
+        filename: 'image.png',
+        path: 'public/images/logo2.png',
+        cid: 'eclub@logo' //same cid value as in the html img src
+      }]
+	};
+
+	transporter.sendMail(mailOptions, function(error, info){
+	  if (error) {
+		console.log(error);
+	  } else {
+		console.log('Email sent: ' + info.response);
+	  }
+	})
+});
+
 
 app.get('/', (req, res) => {
   res
