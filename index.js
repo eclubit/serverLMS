@@ -61,16 +61,15 @@ app.get('/my-courses', async(req, res) => {
 	res.sendFile("public/index.html", { root: __dirname })
 });
 
-app.get('/send-email', async(req, res) => {
-	var receiver = "prageethpramuditha.97@gmail.com"//req.body.receiver;
-	var subject = "qwefqef"; //req.body.subject;
-	var text = "";
-	//var html = req.body.html;
+app.post('/send-email', async(req, res) => {
+	let to = req.body.to;
+	let subject = req.body.subject;
+	let text = req.body.text;
+	let html = req.body.html;
 	const transporter = nodemailer.createTransport({
 	  service: "Gmail",
 	  host: "smtp.gmail.com",
-	  port: 465,
-	  secure: true,
+	  secure: false,
 	  auth: {
 		user: "office.eclub@gmail.com",
 		pass: "nepc cnzg feyw uugd"
@@ -79,14 +78,14 @@ app.get('/send-email', async(req, res) => {
 	
 	var mailOptions = {
 	  from: 'office.eclub@gmail.com',
-	  to: receiver,
+	  to: to,
 	  subject: subject,
 	  text: text,
-	  html: '<!doctype html><html lang="en"> <head></head> <body> <img style="height : 20%; width : 30%;" src="cid:eclub@logo"></div><p style="font-family : Comic Sans; margin-top : 4%;">Your account was created. Please login to <a href="https://office.eclub.lk/">https://office.eclub.lk/</a> using following credintials.</p><table style="border-collapse: collapse;border: 1px solid;"><tbody><tr style="border: 1px solid;"><td style="border: 1px solid; width : 20%; padding : 1%">Username</td><td style="border: 1px solid; width : 40%; padding : 1%"><h4>CCO365643</h4></td></tr><tr><td style="border: 1px solid; width : 20%; padding : 1%">Password</td><td style="border: 1px solid; width : 40%; padding : 1%"><h4>cR%g5fyrt@34</h4></td></tr></tbody></table><p style="margin-top : 4%; color : red;"><b>The above details are highly private and confidential so please avoid sharing them.</b></p> </body></html>',
-	  attachments: [{
+	  html: html,
+      attachments: [{
         filename: 'image.png',
-        path: 'public/images/logo2.png',
-        cid: 'eclub@logo' //same cid value as in the html img src
+        path: './public/images/logo2.png',
+        cid: 'unique@kreata.ee' //same cid value as in the html img src
       }]
 	};
 
