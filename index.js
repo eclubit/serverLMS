@@ -75,7 +75,7 @@ app.post('/send-email', async(req, res) => {
 		pass: "nepc cnzg feyw uugd"
 		},
 	});
-	
+	console.log("Sending email to " + to + "");
 	var mailOptions = {
 	  from: 'office.eclub@gmail.com',
 	  to: to,
@@ -94,6 +94,7 @@ app.post('/send-email', async(req, res) => {
 		console.log(error);
 	  } else {
 		console.log('Email sent: ' + info.response);
+		res.send('Email sent: ' + info.response);
 	  }
 	})
 });
