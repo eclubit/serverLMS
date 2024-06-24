@@ -82,11 +82,11 @@ app.post('/send-email', async(req, res) => {
 	  subject: subject,
 	  text: text,
 	  html: html,
-      attachments: [{
+      /*attachments: [{
         //filename: 'image.png',
         path: 'https://firebasestorage.googleapis.com/v0/b/eclubhr-ffe79.appspot.com/o/logo2.png?alt=media&token=8089c491-5435-474c-b9b2-07d778c8e6a0',
         cid: 'unique@kreata.ee' //same cid value as in the html img src
-      }]
+      }]*/
 	};
 
 	transporter.sendMail(mailOptions, function(error, info){
