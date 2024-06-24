@@ -82,11 +82,11 @@ app.post('/send-email', async(req, res) => {
 	  subject: subject,
 	  text: text,
 	  html: html,
-      attachments: [{
+      /*attachments: [{
         filename: 'image.png',
         path: './public/images/logo2.png',
         cid: 'unique@kreata.ee' //same cid value as in the html img src
-      }]
+      }]*/
 	};
 
 	transporter.sendMail(mailOptions, function(error, info){
