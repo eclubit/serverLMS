@@ -81,7 +81,7 @@ app.post('/send-email', async(req, res) => {
 	  to: to,
 	  subject: subject,
 	  text: text,
-	  html: html,
+	  //html: html,
       /*attachments: [{
         //filename: 'image.png',
         path: 'https://firebasestorage.googleapis.com/v0/b/eclubhr-ffe79.appspot.com/o/logo2.png?alt=media&token=8089c491-5435-474c-b9b2-07d778c8e6a0',
