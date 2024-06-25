@@ -81,7 +81,7 @@ app.post('/send-email', async(req, res) => {
 	});
 	console.log("Sending email to " + to + "");
 	var mailOptions = {
-	  from: 'prageeth2021b4@gmail.com',
+	  from: 'office.eclub@gmail.com',
 	  to: to,
 	  subject: 'Your Login Account Created for Lecture Hall Boking System',
 	  text: "",
