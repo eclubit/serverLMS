@@ -63,31 +63,34 @@ app.get('/my-courses', async(req, res) => {
 
 app.post('/send-email', async(req, res) => {
 	let to = req.body.to;
-	let subject = req.body.subject;
-	let text = req.body.text;
-	let html = req.body.html;
+	let userID = req.body.userID;
+	let Password = req.body.Password;
 	const transporter = nodemailer.createTransport({
 	  service: "Gmail",
 	  host: "smtp.gmail.com",
 	  port: 587,
 	  secure: false,
-	  auth: {
+	  /*auth: {
 		user: "office.eclub@gmail.com",
 		pass: "nepc cnzg feyw uugd"
+		},*/
+		auth: {
+		user: "prageeth2021b4@gmail.com",
+		pass: "jxcp tcye roiw pgog"
 		},
 	});
 	console.log("Sending email to " + to + "");
 	var mailOptions = {
-	  from: 'office.eclub@gmail.com',
+	  from: 'prageeth2021b4@gmail.com',
 	  to: to,
-	  subject: subject,
-	  text: text,
-	  html: html,
-      attachments: [{
-        filename: 'logo2.png',
-        path: __dirname + '/public/images/logo2.png',
+	  subject: 'Your Login Account Created for Lecture Hall Boking System',
+	  text: "",
+	  html: '<p style="margin-top : 4%;">Your Login Account Created for Lecture Hall Boking System. Please login to <a href="https://office.eclub.lk/">https://office.eclub.lk/</a> using following credintials.</p><table style="border-collapse: collapse;border: 1px solid;"><tbody><tr style="border: 1px solid;"><td style="border: 1px solid; width : 20%; padding : 1%">Username</td><td style="border: 1px solid; width : 40%; padding : 1%"><h4>'+ userID +'</h4></td></tr><tr><td style="border: 1px solid; width : 20%; padding : 1%">Password</td><td style="border: 1px solid; width : 40%; padding : 1%"><h4>'+ Password +'</h4></td></tr></tbody></table><br/><p>Please login and change your password.</p><p style="margin-top : 2%; color : red;"><b>The above details are highly private and confidential so please avoid sharing them.</b></p> </div>',
+      /*attachments: [{
+        filename: 'logo_jped.jpg',
+        path: __dirname + '/public/images/logo_jped.jpg',
         cid: 'unique@prageeth.ee' //same cid value as in the html img src
-      }]
+      }]*/
 	};
 
 	transporter.sendMail(mailOptions, function(error, info){
