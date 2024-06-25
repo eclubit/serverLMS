@@ -70,14 +70,14 @@ app.post('/send-email', async(req, res) => {
 	  host: "smtp.gmail.com",
 	  port: 587,
 	  secure: false,
-	  /*auth: {
+	   auth: {
 		user: "office.eclub@gmail.com",
 		pass: "nepc cnzg feyw uugd"
-		},*/
-		auth: {
+		},
+		/*auth: {
 		user: "prageeth2021b4@gmail.com",
 		pass: "jxcp tcye roiw pgog"
-		},
+		},*/
 	});
 	console.log("Sending email to " + to + "");
 	var mailOptions = {
