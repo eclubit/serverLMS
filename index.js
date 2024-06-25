@@ -83,9 +83,9 @@ app.post('/send-email', async(req, res) => {
 	var mailOptions = {
 	  from: 'officemanagementeclub@gmail.com',
 	  to: to,
-	  subject: 'Your Login Account Created for Lecture Hall Boking System',
+	  subject: 'Your Login Account Created for Lecture Hall Booking System',
 	  text: "",
-	  html: '<p style="margin-top : 4%;">Your Login Account Created for Lecture Hall Boking System. Please login to <a href="https://office.eclub.lk/">https://office.eclub.lk/</a> using following credintials.</p><table style="border-collapse: collapse;border: 1px solid;"><tbody><tr style="border: 1px solid;"><td style="border: 1px solid; width : 20%; padding : 1%">Username</td><td style="border: 1px solid; width : 40%; padding : 1%"><h4>'+ userID +'</h4></td></tr><tr><td style="border: 1px solid; width : 20%; padding : 1%">Password</td><td style="border: 1px solid; width : 40%; padding : 1%"><h4>'+ Password +'</h4></td></tr></tbody></table><br/><p>Please login and change your password.</p><p style="margin-top : 2%; color : red;"><b>The above details are highly private and confidential so please avoid sharing them.</b></p> </div>',
+	  html: '<p style="margin-top : 4%;">Your Login Account Created for Lecture Hall Booking System. Please login to <a href="https://office.eclub.lk/">https://office.eclub.lk/</a> using following credintials.</p><table style="border-collapse: collapse;border: 1px solid;"><tbody><tr style="border: 1px solid;"><td style="border: 1px solid; width : 20%; padding : 1%">Username</td><td style="border: 1px solid; width : 40%; padding : 1%"><h4>'+ userID +'</h4></td></tr><tr><td style="border: 1px solid; width : 20%; padding : 1%">Password</td><td style="border: 1px solid; width : 40%; padding : 1%"><h4>'+ Password +'</h4></td></tr></tbody></table><br/><p>Please login and change your password.</p><p style="margin-top : 2%; color : red;"><b>The above details are highly private and confidential so please avoid sharing them.</b></p> </div>',
       /*attachments: [{
         filename: 'logo_jped.jpg',
         path: __dirname + '/public/images/logo_jped.jpg',
