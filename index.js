@@ -70,18 +70,18 @@ app.post('/send-email', async(req, res) => {
 	  host: "smtp.gmail.com",
 	  port: 587,
 	  secure: false,
-	   auth: {
+	   /*auth: {
 		user: "office.eclub@gmail.com",
 		pass: "nepc cnzg feyw uugd"
-		},
-		/*auth: {
-		user: "prageeth2021b4@gmail.com",
-		pass: "jxcp tcye roiw pgog"
 		},*/
+		auth: {
+		user: "officemanagementeclub@gmail.com",
+		pass: "winq ncwt rpbm guja"
+		},
 	});
 	console.log("Sending email to " + to + "");
 	var mailOptions = {
-	  from: 'office.eclub@gmail.com',
+	  from: 'officemanagementeclub@gmail.com',
 	  to: to,
 	  subject: 'Your Login Account Created for Lecture Hall Boking System',
 	  text: "",
