@@ -43,15 +43,19 @@ app.post('/', (req, res) => {
 		for(var i in resposeAll){
 			var record1 = resposeAll[i].category + "- H";
 			var record2 = resposeAll[i].category + "- F";
-			for(var j = 0 ; j < result.length; j++){
-				if(result[j] == record1 || result[j] == record2){
-					
-				}
-				else {
-					result.push(resposeAll[i].category + "- " + resposeAll[i].status);
+			if(i > 0){
+				for(var j = 0 ; j < result.length; j++){
+					if(result[j] == record1 || result[j] == record2){
+						
+					}
+					else {
+						result.push(resposeAll[i].category + "- " + resposeAll[i].status);
+					}
 				}
 			}
-			
+			else {
+				result.push(resposeAll[i].category + "- " + resposeAll[i].status);
+			}
 		}
 		res.send(result);
 	})
@@ -86,15 +90,19 @@ app.get('/testing', (req, res) => {
 		for(var i in resposeAll){
 			var record1 = resposeAll[i].category + "- H";
 			var record2 = resposeAll[i].category + "- F";
-			for(var j = 0 ; j < result.length; j++){
-				if(result[j] == record1 || result[j] == record2){
-					
-				}
-				else {
-					result.push(resposeAll[i].category + "- " + resposeAll[i].status);
+			if(i > 0){
+				for(var j = 0 ; j < result.length; j++){
+					if(result[j] == record1 || result[j] == record2){
+						
+					}
+					else {
+						result.push(resposeAll[i].category + "- " + resposeAll[i].status);
+					}
 				}
 			}
-			
+			else {
+				result.push(resposeAll[i].category + "- " + resposeAll[i].status);
+			}
 		}
 		res.send(result);
 	})
