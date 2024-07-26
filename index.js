@@ -74,9 +74,9 @@ app.get('/testing', (req, res) => {
 	  var result = [];
 
 		for(var i in resposeAll){
-			result.push(resposeAll[i].category);
+			result.push(resposeAll[0].category);
 		}
-		res.send(result);
+		res.send(resposeAll[0].category);
 	})
 	.catch((error) => {
 	  console.log(error);
