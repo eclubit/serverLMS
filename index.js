@@ -37,7 +37,46 @@ app.post('/', (req, res) => {
 
 	axios.request(config)
 	.then((response) => {
-	  res.send(JSON.stringify(response.data));
+	  var resposeAll = JSON.stringify(response.data);
+	  var result = [];
+
+		for(var i in resposeAll){
+			result.push(data[i]);
+		}
+		res.send(result);
+	})
+	.catch((error) => {
+	  console.log(error);
+	});
+
+});
+
+app.get('/', (req, res) => {
+	let sr_no = "SR292440";//req.body.key;
+	let data = new FormData();
+	data.append('user_id', sr_no);
+	let config = {
+	  method: 'post',
+	  maxBodyLength: Infinity,
+	  url: 'https://www.eclub.lk/api/user_courses/all',
+	  headers: { 
+		'access_token': '$2y$10$S3W2WSR9sk5cf0yEqR1Rf.oZGkvhUu46idzux2QLMTTzt3m2IHIWS', 
+		'Content-Type': 'application/json', 
+		'Cookie': 'wtk_s=e8kvcekdr96vvqgmmectba1o23', 
+		...data.getHeaders()
+	  },
+	  data : data
+	};
+
+	axios.request(config)
+	.then((response) => {
+	  var resposeAll = JSON.stringify(response.data);
+	  var result = [];
+
+		for(var i in resposeAll){
+			result.push(data[i]);
+		}
+		res.send(result);
 	})
 	.catch((error) => {
 	  console.log(error);
