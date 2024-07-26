@@ -52,7 +52,7 @@ app.post('/', (req, res) => {
 });
 
 app.get('/testing', (req, res) => {
-	let sr_no = "SR292440";//req.body.key;
+	let sr_no = "292440";//req.body.key;
 	let data = new FormData();
 	data.append('user_id', sr_no);
 	let config = {
