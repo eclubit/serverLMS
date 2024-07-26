@@ -76,7 +76,7 @@ app.get('/testing', (req, res) => {
 		for(var i in resposeAll){
 			result.push(data[i]);
 		}
-		res.send(result);
+		res.send(resposeAll);
 	})
 	.catch((error) => {
 	  console.log(error);
