@@ -45,6 +45,7 @@ app.post('/api/auth', (req, res) => {
 	.then((response) => {
 	  var resposeAll = response.data;
 	  var result = [];
+	  var result_obj = new Object();
 
 		for(var i in resposeAll){
 			var record1 = resposeAll[i].category + "- H";
@@ -56,14 +57,16 @@ app.post('/api/auth', (req, res) => {
 					}
 					else {
 						result.push(resposeAll[i].category + "- " + resposeAll[i].status);
+						result_obj.push(resposeAll[i].category + "- " + resposeAll[i].status);
 					}
 				}
 			}
 			else {
 				result.push(resposeAll[i].category + "- " + resposeAll[i].status);
+				result_obj.push(resposeAll[i].category + "- " + resposeAll[i].status);
 			}
 		}
-		var obj = new Object({ "key" :  result , "key2" :  result});
+		var obj = new Object({ "key" :  result_obj , "key2" :  result});
 		res.send(obj);
 	})
 	.catch((error) => {
