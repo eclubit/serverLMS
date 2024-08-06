@@ -30,3 +30,8 @@
     outline: none;
     border-color: #007bff;
 }
+
+.testClass {
+	background-color : red;
+	padding : 5%;
+}
