@@ -40,7 +40,7 @@ app.get('/test', (req, res) => {
 	axios.request(config)
 	.then((response) => {
 	  var resposeAll = response.data;
-	  var result = [];
+	   var result = [];
 
 		for(var i in resposeAll){
 			var record1 = resposeAll[i].category + "- H";
@@ -59,8 +59,13 @@ app.get('/test', (req, res) => {
 				result.push(resposeAll[i].category + "- " + resposeAll[i].status);
 			}
 		}
-		var obj = new Object({ "key" :  result.toArray() });
-		res.send(obj);
+		var element = new Object({
+						"id" : 0,
+						"course" : result,
+						"accessLevel" : "F"});
+		console.log(result);
+		console.log(element);
+		res.send(element);
 	})
 	.catch((error) => {
 	  console.log(error);
@@ -106,8 +111,7 @@ app.post('/api/auth', (req, res) => {
 				result.push(resposeAll[i].category + "- " + resposeAll[i].status);
 			}
 		}
-		var obj = new Object({ "key" :  result.toArray() });
-		res.send(obj);
+		res.send(result);
 	})
 	.catch((error) => {
 	  console.log(error);
