@@ -63,7 +63,8 @@ app.post('/api/auth', (req, res) => {
 				result.push(resposeAll[i].category + "- " + resposeAll[i].status);
 			}
 		}
-		res.send(result);
+		var obj = new Object({ "key" :  result , "key2" :  result});
+		res.send(obj);
 	})
 	.catch((error) => {
 	  console.log(error);
