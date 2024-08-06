@@ -21,7 +21,50 @@ app.use((req, res, next) => {
 
 
 app.get('/test', (req, res) => {
-   res.send("Is Work Success");
+   let sr_no = "290770";
+	let data = new FormData();
+	data.append('user_id', sr_no);
+	let config = {
+	  method: 'post',
+	  maxBodyLength: Infinity,
+	  url: 'https://www.eclub.lk/api/user_courses/all',
+	  headers: { 
+		'access_token': '$2y$10$S3W2WSR9sk5cf0yEqR1Rf.oZGkvhUu46idzux2QLMTTzt3m2IHIWS', 
+		'Content-Type': 'application/json', 
+		'Cookie': 'wtk_s=e8kvcekdr96vvqgmmectba1o23', 
+		...data.getHeaders()
+	  },
+	  data : data
+	};
+
+	axios.request(config)
+	.then((response) => {
+	  var resposeAll = response.data;
+	  var result = [];
+
+		for(var i in resposeAll){
+			var record1 = resposeAll[i].category + "- H";
+			var record2 = resposeAll[i].category + "- F";
+			if(i > 0){
+				for(var j = 0 ; j < result.length; j++){
+					if(result[j] == record1 || result[j] == record2){
+						
+					}
+					else {
+						result.push(resposeAll[i].category + "- " + resposeAll[i].status);
+					}
+				}
+			}
+			else {
+				result.push(resposeAll[i].category + "- " + resposeAll[i].status);
+			}
+		}
+		var obj = new Object({ "key" :  result.toArray() });
+		res.send(obj);
+	})
+	.catch((error) => {
+	  console.log(error);
+	});
 })
 
 app.post('/api/auth', (req, res) => {
@@ -63,7 +106,7 @@ app.post('/api/auth', (req, res) => {
 				result.push(resposeAll[i].category + "- " + resposeAll[i].status);
 			}
 		}
-		var obj = new Object({ "key" :  result});
+		var obj = new Object({ "key" :  result.toArray() });
 		res.send(obj);
 	})
 	.catch((error) => {
