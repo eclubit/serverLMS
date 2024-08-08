@@ -5,10 +5,13 @@ const FormData = require('form-data');
 const fs = require('fs');
 
 const { promisify } = require('util');
+const { machineId, machineIdSync } = require('node-machine-id');
 
 const readFile = promisify(fs.readFile);
 const path = require('path');
 const app = express();
+
+
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(express.static('public'));
@@ -19,15 +22,23 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.post('/api/auth', async (req, res) => {
+	let sr_no = req.body.key;
+	let id1 = machineIdSync();
+	let id2 = machineIdSync({original: true})
+	
+	res.send(id2);
+});
+app.get('/getcookie', function (req, res) {
+    res.send(req.cookies);
+})
+
+app.post('/api/login', async (req, res) => {
 	let sr_no = req.body.key;
 	let data = new FormData();
 	data.append('user_id', sr_no);
 	
 	var courseList = [];
-	var ProfileInfomation = "";
-	var VideoList = [];
 	
 	let config = {
 	  method: 'post',
