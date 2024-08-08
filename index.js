@@ -27,16 +27,50 @@ app.post('/api/auth', async (req, res) => {
 	let id1 = machineIdSync();
 	let id2 = machineIdSync({original: true})
 	
-	res.send(id2);
+	var obj = new Object({
+		"SRNo" : sr_no , 
+		"mID" : id2 ,
+		"personalData" : getPersonalData(sr_no),
+		"courseList" : getCourseList(sr_no)
+	});
+	
+	
+	res.send(obj);
 });
-app.get('/getcookie', function (req, res) {
+
+app.get('/get/mID', function (req, res) {
     res.send(req.cookies);
 })
 
-app.post('/api/login', async (req, res) => {
-	let sr_no = req.body.key;
+function getPersonalData(SRNo){
 	let data = new FormData();
-	data.append('user_id', sr_no);
+	data.append('user_id', SRNo);
+		
+	let config = {
+	  method: 'post',
+	  maxBodyLength: Infinity,
+	  url: 'https://www.eclub.lk/api/user',
+	  headers: { 
+		'access_token': '$2y$10$S3W2WSR9sk5cf0yEqR1Rf.oZGkvhUu46idzux2QLMTTzt3m2IHIWS', 
+		'Content-Type': 'text', 
+		'Cookie': 'wtk_s=e8kvcekdr96vvqgmmectba1o23', 
+		...data.getHeaders()
+	  },
+	  data : data
+	};
+
+	await axios.request(config)
+	.then((response) => {
+	  var resposeAll = response.data;
+		return resposeAll;
+	})
+	.catch((error) => {
+	  console.log(error);
+	});
+}
+function getCourseList(SRNo){
+	let data = new FormData();
+	data.append('user_id', SRNo);
 	
 	var courseList = [];
 	
@@ -74,14 +108,14 @@ app.post('/api/login', async (req, res) => {
 				courseList.push(resposeAll[i].category + "- " + resposeAll[i].status);
 			}
 		}
+		
+		return courseList;
 	})
 	.catch((error) => {
 	  console.log(error);
 	});
-	
-	
-	res.send(courseList);
-});
+}
+
 
 
 app.post('/send-email', async(req, res) => {
