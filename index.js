@@ -2,13 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const FormData = require('form-data');
-const fs = require('fs');
-
+const requestIp = require('request-ip')
 const { promisify } = require('util');
-const {machineId, machineIdSync}  = require('node-machine-id'); 
-const getmac = require('getmac');
 
-const readFile = promisify(fs.readFile);
 const path = require('path');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -21,25 +17,17 @@ app.use((req, res, next) => {
   next();
 });
 
-
-app.post('/api/auth', async (req, res) => {
-	fetch('https://api.ipify.org?format=json')
-    .then(response => response.json())
-    .then(data => {
-		res.send(data.ip);
-    })
-    .catch(error => {
-        console.log('Error:', error);
-    });
-	
+app.get('/', (req, res) => {
+  var clientIp = requestIp.getClientIp(req)
+  res.send(`Your IP Address is ${clientIp}.`)
 });
 
-app.get('/api/test', async (req, res) => {
+app.post('/api/auth', async (req, res) => {
 	let sr_no = req.body.key;
 	let id1 = machineIdSync();
 	let id2 = machineIdSync({original: true})
 	
-	res.send(getmac.default());
+	res.send(id2);
 });
 
 app.post('/api/get/personal_details', async (req, res) => {
