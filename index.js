@@ -27,10 +27,6 @@ app.post('/api/auth', async (req, res) => {
 	res.send(id1);
 });
 
-app.get('/get/mID', function (req, res) {
-    res.send(req.cookies);
-})
-
 app.post('/api/get/personal_details', async (req, res) => {
 	let sr_no = req.body.key;
 	let data = new FormData();
