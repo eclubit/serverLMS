@@ -28,6 +28,14 @@ app.post('/api/auth', async (req, res) => {
 	res.send(id2);
 });
 
+app.get('/api/test', async (req, res) => {
+	let sr_no = req.body.key;
+	let id1 = machineIdSync();
+	let id2 = machineIdSync({original: true})
+	
+	res.send(id2);
+});
+
 app.post('/api/get/personal_details', async (req, res) => {
 	let sr_no = req.body.key;
 	let data = new FormData();
