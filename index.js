@@ -5,6 +5,7 @@ const FormData = require('form-data');
 const fs = require('fs');
 
 const { promisify } = require('util');
+const {machineId, machineIdSync}  = require('node-machine-id'); 
 
 const readFile = promisify(fs.readFile);
 const path = require('path');
@@ -24,7 +25,7 @@ app.post('/api/auth', async (req, res) => {
 	let id1 = machineIdSync();
 	let id2 = machineIdSync({original: true})
 	
-	res.send(id1);
+	res.send(id2);
 });
 
 app.post('/api/get/personal_details', async (req, res) => {
