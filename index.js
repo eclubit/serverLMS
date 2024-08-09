@@ -6,6 +6,7 @@ const fs = require('fs');
 
 const { promisify } = require('util');
 const {machineId, machineIdSync}  = require('node-machine-id'); 
+const getmac = require('getmac');
 
 const readFile = promisify(fs.readFile);
 const path = require('path');
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
   next();
 });
 
+
 app.post('/api/auth', async (req, res) => {
 	let sr_no = req.body.key;
 	let id1 = machineIdSync();
@@ -33,7 +35,7 @@ app.get('/api/test', async (req, res) => {
 	let id1 = machineIdSync();
 	let id2 = machineIdSync({original: true})
 	
-	res.send(id2);
+	res.send(getmac.default());
 });
 
 app.post('/api/get/personal_details', async (req, res) => {
