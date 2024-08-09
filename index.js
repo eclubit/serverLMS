@@ -104,10 +104,14 @@ var cryptoF = [
 
 
 app.post('/api/viewCourse', (req, res) => {
-	let sr_no = req.body.srNo;
 	let course = req.body.course;
 	let accessLevel = req.body.accessLevel;
-	cryptoH
+	if(course == "Crypto Trading Guide" && accessLevel == "H"){
+		res.send(cryptoH);
+	}
+	if(course == "Crypto Trading Guide" && accessLevel == "F"){
+		res.send(cryptoF);
+	}
 });
 
 app.post('/api/get_courses', async (req, res) => {
