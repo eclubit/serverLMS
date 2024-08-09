@@ -5,13 +5,10 @@ const FormData = require('form-data');
 const fs = require('fs');
 
 const { promisify } = require('util');
-const { machineId, machineIdSync } = require('node-machine-id');
 
 const readFile = promisify(fs.readFile);
 const path = require('path');
 const app = express();
-
-
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(express.static('public'));
@@ -27,50 +24,47 @@ app.post('/api/auth', async (req, res) => {
 	let id1 = machineIdSync();
 	let id2 = machineIdSync({original: true})
 	
-	var obj = new Object({
-		"SRNo" : sr_no , 
-		"mID" : id2 ,
-		"personalData" : getPersonalData(sr_no),
-		"courseList" : getCourseList(sr_no)
-	});
-	
-	
-	res.send(obj);
+	res.send(id1);
 });
 
 app.get('/get/mID', function (req, res) {
     res.send(req.cookies);
 })
 
-function getPersonalData(SRNo){
+app.post('/api/get/personal_details', async (req, res) => {
+	let sr_no = req.body.key;
 	let data = new FormData();
-	data.append('user_id', SRNo);
-		
+	data.append('user_id', sr_no);
+	
 	let config = {
-	  method: 'post',
-	  maxBodyLength: Infinity,
-	  url: 'https://www.eclub.lk/api/user',
-	  headers: { 
-		'access_token': '$2y$10$S3W2WSR9sk5cf0yEqR1Rf.oZGkvhUu46idzux2QLMTTzt3m2IHIWS', 
-		'Content-Type': 'text', 
-		'Cookie': 'wtk_s=e8kvcekdr96vvqgmmectba1o23', 
-		...data.getHeaders()
-	  },
-	  data : data
+		method: 'post',
+		maxBodyLength: Infinity,
+		url: 'https://www.eclub.lk/api/user/',
+		headers: { 
+			'access_token': '$2y$10$S3W2WSR9sk5cf0yEqR1Rf.oZGkvhUu46idzux2QLMTTzt3m2IHIWS', 
+			'Content-Type': 'text', 
+			'Cookie': 'wtk_s=e8kvcekdr96vvqgmmectba1o23', 
+			...data.getHeaders()
+		},
+		data : data
 	};
-
 	await axios.request(config)
 	.then((response) => {
-	  var resposeAll = response.data;
-		return resposeAll;
+		var resposeAll = response.data;
+		res.send(resposeAll);
 	})
 	.catch((error) => {
 	  console.log(error);
 	});
-}
-function getCourseList(SRNo){
+	
+	
+		
+})
+
+app.post('/api/get/courseList', async (req, res) => {
+	let sr_no = req.body.key;
 	let data = new FormData();
-	data.append('user_id', SRNo);
+	data.append('user_id', sr_no);
 	
 	var courseList = [];
 	
@@ -108,14 +102,13 @@ function getCourseList(SRNo){
 				courseList.push(resposeAll[i].category + "- " + resposeAll[i].status);
 			}
 		}
-		
-		return courseList;
+		res.send(courseList);
 	})
 	.catch((error) => {
 	  console.log(error);
 	});
-}
-
+	
+});
 
 
 app.post('/send-email', async(req, res) => {
