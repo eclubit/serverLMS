@@ -17,17 +17,146 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => {
-  var clientIp = requestIp.getClientIp(req)
-  res.send(`Your IP Address is ${clientIp}.`)
+var cryptoH = {
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 01.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 02.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New crypto session 03.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 04.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 05.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 06.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 07.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/Crypto 08.mp4"
+}
+
+var cryptoF = {
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 01.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 02.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New crypto session 03.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 04.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 05.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 06.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 07.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/Crypto 08.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/Crypto 09.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/Crypto 10.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/Crypto 11.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/Crypto 12.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/Crypto 13.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/Crypto 14.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 15.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 16.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 17.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 18.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/Crypto 19.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 20.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 21.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 22.mp4",
+	//"https://d1qbxnh5ik5y1d.cloudfront.net/Crypto 23.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/Crypto 24.mp4",
+	"https://d1qbxnh5ik5y1d.cloudfront.net/Crypto 25.mp4"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.post('/api/viewCourse', (req, res) => {
+	let sr_no = req.body.srNo;
+	let course = req.body.course;
+	let accessLevel = req.body.accessLevel;
+	cryptoH
 });
 
-app.post('/api/auth', async (req, res) => {
+app.post('/api/get_courses', async (req, res) => {
 	let sr_no = req.body.key;
-	let id1 = machineIdSync();
-	let id2 = machineIdSync({original: true})
+	let sr_no = req.body.key;
+	let data = new FormData();
+	data.append('user_id', sr_no);
 	
-	res.send(id2);
+	var courseList = [];
+	
+	let config = {
+	  method: 'post',
+	  maxBodyLength: Infinity,
+	  url: 'https://www.eclub.lk/api/user_courses/all',
+	  headers: { 
+		'access_token': '$2y$10$S3W2WSR9sk5cf0yEqR1Rf.oZGkvhUu46idzux2QLMTTzt3m2IHIWS', 
+		'Content-Type': 'application/json', 
+		'Cookie': 'wtk_s=e8kvcekdr96vvqgmmectba1o23', 
+		...data.getHeaders()
+	  },
+	  data : data
+	};
+
+	await axios.request(config)
+	.then((response) => {
+	  var resposeAll = response.data;
+
+		for(var i in resposeAll){
+			var record1 = resposeAll[i].category + "- H";
+			var record2 = resposeAll[i].category + "- F";
+			if(i > 0){
+				for(var j = 0 ; j < courseList.length; j++){
+					if(courseList[j] == record1 && courseList[j] == record2){
+						
+					}
+					else {
+						courseList.push(resposeAll[i].category + "- " + resposeAll[i].status);
+					}
+				}
+			}
+			else {
+				courseList.push(resposeAll[i].category + "- " + resposeAll[i].status);
+			}
+		}
+		res.send(courseList);
+	})
+	.catch((error) => {
+	  console.log(error);
+	});
 });
 
 app.post('/api/get/personal_details', async (req, res) => {
@@ -59,55 +188,6 @@ app.post('/api/get/personal_details', async (req, res) => {
 	
 		
 })
-
-app.post('/api/get/courseList', async (req, res) => {
-	let sr_no = req.body.key;
-	let data = new FormData();
-	data.append('user_id', sr_no);
-	
-	var courseList = [];
-	
-	let config = {
-	  method: 'post',
-	  maxBodyLength: Infinity,
-	  url: 'https://www.eclub.lk/api/user_courses/all',
-	  headers: { 
-		'access_token': '$2y$10$S3W2WSR9sk5cf0yEqR1Rf.oZGkvhUu46idzux2QLMTTzt3m2IHIWS', 
-		'Content-Type': 'application/json', 
-		'Cookie': 'wtk_s=e8kvcekdr96vvqgmmectba1o23', 
-		...data.getHeaders()
-	  },
-	  data : data
-	};
-
-	await axios.request(config)
-	.then((response) => {
-	  var resposeAll = response.data;
-
-		for(var i in resposeAll){
-			var record1 = resposeAll[i].category + "- H";
-			var record2 = resposeAll[i].category + "- F";
-			if(i > 0){
-				for(var j = 0 ; j < courseList.length; j++){
-					if(courseList[j] == record1 || courseList[j] == record2){
-						
-					}
-					else {
-						courseList.push(resposeAll[i].category + "- " + resposeAll[i].status);
-					}
-				}
-			}
-			else {
-				courseList.push(resposeAll[i].category + "- " + resposeAll[i].status);
-			}
-		}
-		res.send(courseList);
-	})
-	.catch((error) => {
-	  console.log(error);
-	});
-	
-});
 
 
 app.post('/send-email', async(req, res) => {
