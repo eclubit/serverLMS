@@ -106,10 +106,10 @@ var cryptoF = [
 app.post('/api/viewCourse', (req, res) => {
 	let course = req.body.course;
 	let accessLevel = req.body.accessLevel;
-	if(course == "Crypto Trading Guide" && accessLevel == "H"){
+	if(course == "Crypto Trading Guide" && accessLevel.trim() == "H"){
 		res.send(cryptoH);
 	}
-	if(course == "Crypto Trading Guide" && accessLevel == "F"){
+	if(course == "Crypto Trading Guide" && accessLevel.trim() == "F"){
 		res.send(cryptoF);
 	}
 });
