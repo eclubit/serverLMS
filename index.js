@@ -139,11 +139,8 @@ app.post('/api/get_courses', async (req, res) => {
 			var record2 = resposeAll[i].category + "- F";
 			if(i > 0){
 				for(var j = 0 ; j < courseList.length; j++){
-					if(courseList[j] == record1 && courseList[j] == record2){
-						
-					}
-					else {
-						courseList.push(resposeAll[i].category + "- " + resposeAll[i].status);
+					if(courseList[j] == record1 &&  resposeAll[i].status == "F"){
+						courseList[j] = resposeAll[i].category + "- " + resposeAll[i].status;
 					}
 				}
 			}
@@ -156,7 +153,8 @@ app.post('/api/get_courses', async (req, res) => {
 	.catch((error) => {
 	  console.log(error);
 	});
-});
+}); 
+
 
 app.post('/api/get/personal_details', async (req, res) => {
 	let sr_no = req.body.key;
