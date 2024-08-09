@@ -23,11 +23,15 @@ app.use((req, res, next) => {
 
 
 app.post('/api/auth', async (req, res) => {
-	let sr_no = req.body.key;
-	let id1 = machineIdSync();
-	let id2 = machineIdSync({original: true})
+	fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => {
+		res.send(data.ip);
+    })
+    .catch(error => {
+        console.log('Error:', error);
+    });
 	
-	res.send(id2);
 });
 
 app.get('/api/test', async (req, res) => {
