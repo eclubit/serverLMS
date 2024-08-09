@@ -17,7 +17,7 @@ app.use((req, res, next) => {
   next();
 });
 
-var cryptoH = {
+var cryptoH = [
 	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 01.mp4",
 	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 02.mp4",
 	"https://d1qbxnh5ik5y1d.cloudfront.net/New crypto session 03.mp4",
@@ -26,9 +26,9 @@ var cryptoH = {
 	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 06.mp4",
 	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 07.mp4",
 	"https://d1qbxnh5ik5y1d.cloudfront.net/Crypto 08.mp4"
-}
+]
 
-var cryptoF = {
+var cryptoF = [
 	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 01.mp4",
 	"https://d1qbxnh5ik5y1d.cloudfront.net/New Crypto Session 02.mp4",
 	"https://d1qbxnh5ik5y1d.cloudfront.net/New crypto session 03.mp4",
@@ -54,7 +54,7 @@ var cryptoF = {
 	//"https://d1qbxnh5ik5y1d.cloudfront.net/Crypto 23.mp4",
 	"https://d1qbxnh5ik5y1d.cloudfront.net/Crypto 24.mp4",
 	"https://d1qbxnh5ik5y1d.cloudfront.net/Crypto 25.mp4"
-}
+]
 
 
 
@@ -111,7 +111,6 @@ app.post('/api/viewCourse', (req, res) => {
 });
 
 app.post('/api/get_courses', async (req, res) => {
-	let sr_no = req.body.key;
 	let sr_no = req.body.key;
 	let data = new FormData();
 	data.append('user_id', sr_no);
